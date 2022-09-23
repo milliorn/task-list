@@ -9,11 +9,9 @@ function App() {
   const [items, setItems] = useState([]);
   const [showItem, setShowItem] = useState(false);
 
-  const getGrocery = JSON.parse(localStorage.getItem("itemAdded"));
+  const getGrocery = JSON.parse(localStorage.getItem("taskAdded"));
 
-  /**
-   * Read
-   */
+  /* Read */
   useEffect(
     () => {
       if (getGrocery == null) {
@@ -22,8 +20,8 @@ function App() {
         setItems(getGrocery);
       }
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [] /* this is blank so we do not run continuously */
+    /* eslint-disable-next-line react-hooks/exhaustive-deps */
+    [] /* empty dependency is blank so we do not run continuously */
   );
 
   /**
@@ -42,7 +40,7 @@ function App() {
       text: "Item added!",
     });
 
-    localStorage.setItem("itemAdded", JSON.stringify([...items, newItem]));
+    localStorage.setItem("taskAdded", JSON.stringify([...items, newItem]));
   };
 
   /**
@@ -60,7 +58,7 @@ function App() {
       text: "Item deleted!",
     });
 
-    localStorage.setItem("itemAdded", JSON.stringify(deleteItem));
+    localStorage.setItem("taskAdded", JSON.stringify(deleteItem));
   };
 
   /**
@@ -70,7 +68,7 @@ function App() {
   const updateTask = (id) => {
     const text = prompt("Item Name");
     const quantity = prompt("Quantity");
-    const data = JSON.parse(localStorage.getItem("itemAdded"));
+    const data = JSON.parse(localStorage.getItem("taskAdded"));
 
     const myData = data.map((x) => {
       if (x.id === id) {
@@ -90,7 +88,7 @@ function App() {
       text: "Item updated!",
     });
 
-    localStorage.setItem("itemAdded", JSON.stringify(myData));
+    localStorage.setItem("taskAdded", JSON.stringify(myData));
     window.location.reload();
   };
 
