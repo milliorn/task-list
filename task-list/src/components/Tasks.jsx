@@ -1,12 +1,12 @@
 import TaskItem from "./TaskItem";
 
-const Items = ({ items, onDelete, onEdit }) => {
+const Tasks = ({ tasks, onDelete, onEdit }) => {
   return (
     <>
-      {items.map((item) => (
+      {tasks.map((item) => (
         <TaskItem
-          key={item.id}
           item={item}
+          key={item.id}
           onDelete={onDelete}
           onEdit={onEdit}
         />
@@ -15,4 +15,4 @@ const Items = ({ items, onDelete, onEdit }) => {
   );
 };
 
-export default Items;
+export default Tasks;

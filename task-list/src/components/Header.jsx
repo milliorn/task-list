@@ -2,22 +2,22 @@ import React from "react";
 import Button from "./Button";
 
 const styles = {
-  header: "flex items-center justify-between mb-4 header",
   h2: "font-serif text-xl app-header sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl",
+  header: "flex items-center justify-between mb-4 header",
 };
 
 const text = {
   h2: "Task List",
 };
 
-const Header = ({ showForm, changeTextAndColor }) => {
+const Header = ({ showForm, updateColorText }) => {
   return (
     <header className={styles.header}>
       <h2 className={styles.h2}>{text.h2}</h2>
       <Button
-        color={changeTextAndColor ? "red" : "green"} // change color based on state
+        color={updateColorText ? "red" : "green"} // change color based on state
         onClick={showForm}
-        text={changeTextAndColor ? "Close" : "Add"} // change color based on state
+        text={updateColorText ? "Close" : "Add"} // change color based on state
       />
     </header>
   );

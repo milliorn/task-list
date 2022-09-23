@@ -1,12 +1,12 @@
 import { FaPencilAlt, FaTimes } from "react-icons/fa";
 
 const styles = {
+  delete: "my-1.5 text-red-500 cursor-pointer delIcon",
+  divLeft: "text-zinc-900",
   divMain:
     "flex justify-between max-w-full px-5 py-3 mx-auto my-2 overflow-scroll rounded-md cursor-pointer item bg-zinc-100",
-  divLeft: "text-zinc-900",
   divParagraph: "sm:text-lg md:text-xl lg:text-2xl xl:text-3xl",
   divSpan: "font-bold itemBold",
-  delete: "my-1.5 text-red-500 cursor-pointer delIcon",
   edit: "my-1.5 text-blue-500 cursor-pointer editIcon",
 };
 

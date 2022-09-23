@@ -1,77 +1,94 @@
 import { useEffect, useState } from "react";
+
 import Swal from "sweetalert2";
 import { v4 as uuidv4 } from "uuid";
+
 import AddTaskItem from "./components/AddTaskItem";
 import Header from "./components/Header";
-import Items from "./components/Items";
+import Tasks from "./components/Tasks";
+
+const styles = {
+  div: "container max-w-2xl mx-auto my-0 overflow-auto text-zinc-50 opacity-90 bg-zinc-900 p-7",
+  h3: "mb-4 text-lg lg:mb-5 xl:mb-6 2xl:mb-7 sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl",
+  span: "text-xl leading-10",
+};
+
+const stringText = {
+  h3: "Remaining Tasks: ",
+  icon: "success",
+  span: "Tasks will be  added here...",
+  taskAdded: "taskAdded",
+  title: "Success!",
+};
 
 function App() {
-  const [items, setItems] = useState([]);
-  const [showItem, setShowItem] = useState(false);
+  const [showTask, setShowTask] = useState(false);
+  const [tasks, setTasks] = useState([]);
 
-  const getGrocery = JSON.parse(localStorage.getItem("taskAdded"));
+  /* https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage */
+  const getTasks = JSON.parse(localStorage.getItem(stringText.taskAdded));
 
   /* Read */
   useEffect(
     () => {
-      if (getGrocery == null) {
-        setItems([]);
+      if (getTasks == null) {
+        setTasks([]);
       } else {
-        setItems(getGrocery);
+        setTasks(getTasks);
       }
     },
     /* eslint-disable-next-line react-hooks/exhaustive-deps */
     [] /* empty dependency is blank so we do not run continuously */
   );
 
-  /**
-   * Create
-   * @param {*} item
-   */
-  const createItem = (item) => {
+  /* Create */
+  const createTask = (item) => {
     const id = uuidv4();
-    const newItem = { id, ...item };
+    /* https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax */
+    const newTask = { id, ...item };
 
-    setItems([...items, newItem]);
+    setTasks([...tasks, newTask]);
 
+    /* https://sweetalert2.github.io/ */
     Swal.fire({
-      icon: "success",
-      title: "Success!",
-      text: "Item added!",
+      icon: stringText.icon,
+      text: "Task added!",
+      title: stringText.title,
     });
 
-    localStorage.setItem("taskAdded", JSON.stringify([...items, newItem]));
+    /* store our task to the list */
+    localStorage.setItem(
+      stringText.taskAdded,
+      JSON.stringify([...tasks, newTask])
+    );
   };
 
-  /**
-   * Delete
-   * @param {*} id
-   */
-  const deleteItem = (id) => {
-    const deleteItem = items.filter((item) => item.id !== id);
+  /* Delete */
+  const deleteTask = (id) => {
+    /* filter out the task we deleted in a new array */
+    const filterTask = tasks.filter((item) => item.id !== id);
 
-    setItems(deleteItem);
+    /* save our data from our new array to state */
+    setTasks(filterTask);
 
     Swal.fire({
-      icon: "success",
-      title: "Success!",
-      text: "Item deleted!",
+      icon: stringText.icon,
+      text: "Task deleted!",
+      title: stringText.title,
     });
 
-    localStorage.setItem("taskAdded", JSON.stringify(deleteItem));
+    localStorage.setItem(stringText.taskAdded, JSON.stringify(filterTask));
   };
 
-  /**
-   * Update
-   * @param {*} id
-   */
+  /* Update */
   const updateTask = (id) => {
-    const text = prompt("Item Name");
+    const text = prompt("Task Name");
     const quantity = prompt("Quantity");
-    const data = JSON.parse(localStorage.getItem("taskAdded"));
+    const data = JSON.parse(localStorage.getItem(stringText.taskAdded));
 
-    const myData = data.map((x) => {
+    const localData = data.map((x) => {
       if (x.id === id) {
+        /* add to end of the list*/
         return {
           ...x,
           text: text,
@@ -83,33 +100,37 @@ function App() {
     });
 
     Swal.fire({
-      icon: "success",
-      title: "Success!",
-      text: "Item updated!",
+      icon: stringText.icon,
+      text: "Task updated!",
+      title: stringText.title,
     });
 
-    localStorage.setItem("taskAdded", JSON.stringify(myData));
+    localStorage.setItem(stringText.taskAdded, JSON.stringify(localData));
     window.location.reload();
   };
 
   return (
     <>
-      <div className="container max-w-2xl mx-auto my-0 overflow-auto text-zinc-50 opacity-95 bg-zinc-900 p-7">
+      <div className={styles.div}>
         <Header
-          showForm={() => setShowItem(!showItem)}
-          changeTextAndColor={showItem}
+          showForm={() => setShowTask(!showTask)}
+          updateColorText={showTask}
         />
 
-        {showItem && <AddTaskItem onSave={createItem} />}
+        {/* If true switch over to form to add task */}
+        {showTask && <AddTaskItem onSave={createTask} />}
 
-        <h3 className="mb-4 text-lg lg:mb-5 xl:mb-6 2xl:mb-7 sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl">
-          Items Remaining: {items.length}
+        {/* Remaining Task */}
+        <h3 className={styles.h3}>
+          {stringText.h3}
+          {tasks.length}
         </h3>
 
-        {items.length > 0 ? (
-          <Items items={items} onDelete={deleteItem} onEdit={updateTask} />
+        {/* No tasks left! will be displaey if we have no task else display task */}
+        {tasks.length > 0 ? (
+          <Tasks tasks={tasks} onDelete={deleteTask} onEdit={updateTask} />
         ) : (
-          <span className="text-xl leading-10 ">No items left!</span>
+          <span className={styles.span}>{stringText.span}</span>
         )}
       </div>
     </>
