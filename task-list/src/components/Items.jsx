@@ -1,10 +1,10 @@
-import GroceryItem from "./GroceryItem";
+import TaskItem from "./TaskItem";
 
 const Items = ({ items, onDelete, onEdit }) => {
   return (
     <>
       {items.map((item) => (
-        <GroceryItem
+        <TaskItem
           key={item.id}
           item={item}
           onDelete={onDelete}
