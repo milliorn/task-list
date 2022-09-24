@@ -4,9 +4,9 @@ import AddTaskItem from "./components/AddTaskItem";
 import Header from "./components/Header";
 import Tasks from "./components/Tasks";
 
-import createTask from "./Tasks/createTask";
-import deleteTask from "./Tasks/deleteTask";
-import updateTask from "./Tasks/updateTask";
+import createTask from "./tasks/createTask";
+import deleteTask from "./tasks/deleteTask";
+import updateTask from "./tasks/updateTask";
 
 const styles = {
   div: "container max-w-2xl mx-auto my-0 overflow-auto text-zinc-50 opacity-90 bg-zinc-900 p-7",
