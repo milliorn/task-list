@@ -8,6 +8,7 @@ import Header from "./components/Header";
 import Tasks from "./components/Tasks";
 
 const styles = {
+  html: "box-border m-0 p-0",
   div: "container max-w-2xl mx-auto my-0 overflow-auto text-zinc-50 opacity-90 bg-zinc-900 p-7",
   h3: "mb-4 text-lg lg:mb-5 xl:mb-6 2xl:mb-7 sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl",
   span: "text-xl leading-10",
@@ -110,7 +111,7 @@ function App() {
   };
 
   return (
-    <>
+    <div className={styles.html}>
       <div className={styles.div}>
         <Header
           showForm={() => setShowTask(!showTask)}
@@ -126,14 +127,14 @@ function App() {
           {tasks.length}
         </h3>
 
-        {/* No tasks left! will be displaey if we have no task else display task */}
+        {/* No tasks left! will display if we have no task else display task */}
         {tasks.length > 0 ? (
           <Tasks tasks={tasks} onDelete={deleteTask} onEdit={updateTask} />
         ) : (
           <span className={styles.span}>{stringText.span}</span>
         )}
       </div>
-    </>
+    </div>
   );
 }
 
