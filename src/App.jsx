@@ -6,6 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 import AddTaskItem from "./components/AddTaskItem";
 import Header from "./components/Header";
 import Tasks from "./components/Tasks";
+import createTask from "./Tasks/createTask";
 
 const styles = {
   html: "box-border m-0 p-0",
@@ -41,28 +42,6 @@ function App() {
     /* eslint-disable-next-line react-hooks/exhaustive-deps */
     [] /* empty dependency is blank so we do not run continuously */
   );
-
-  /* Create */
-  const createTask = (item) => {
-    const id = uuidv4();
-    /* https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax */
-    const newTask = { id, ...item };
-
-    setTasks([...tasks, newTask]);
-
-    /* https://sweetalert2.github.io/ */
-    Swal.fire({
-      icon: stringText.icon,
-      text: "Task added!",
-      title: stringText.title,
-    });
-
-    /* store our task to the list */
-    localStorage.setItem(
-      stringText.taskAdded,
-      JSON.stringify([...tasks, newTask])
-    );
-  };
 
   /* Delete */
   const deleteTask = (id) => {
@@ -119,7 +98,7 @@ function App() {
         />
 
         {/* If true switch over to form to add task */}
-        {showTask && <AddTaskItem onSave={createTask} />}
+        {showTask && <AddTaskItem onSave={createTask(setTasks, tasks)} />}
 
         {/* Remaining Task */}
         <h3 className={styles.h3}>
