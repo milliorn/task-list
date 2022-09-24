@@ -2,6 +2,7 @@
   "name": "task-list",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://milliorn.github.io/task-list",
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -39,6 +40,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.4.12",
+    "gh-pages": "^4.0.0",
     "postcss": "^8.4.16",
     "tailwindcss": "^3.1.8"
   }
