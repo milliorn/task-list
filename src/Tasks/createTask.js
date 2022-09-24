@@ -3,8 +3,8 @@ import { v4 as uuidv4 } from "uuid";
 
 const stringText = {
   icon: "success",
-  text: "Task added!",
   taskAdded: "taskAdded",
+  text: "Task added!",
   title: "Success!",
 };
 

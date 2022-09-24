@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
 
-import Swal from "sweetalert2";
-import { v4 as uuidv4 } from "uuid";
-
 import AddTaskItem from "./components/AddTaskItem";
 import Header from "./components/Header";
 import Tasks from "./components/Tasks";
+
 import createTask from "./Tasks/createTask";
+import deleteTask from "./Tasks/deleteTask";
+import updateTask from "./Tasks/updateTask";
 
 const styles = {
-  html: "box-border m-0 p-0",
   div: "container max-w-2xl mx-auto my-0 overflow-auto text-zinc-50 opacity-90 bg-zinc-900 p-7",
   h3: "mb-4 text-lg lg:mb-5 xl:mb-6 2xl:mb-7 sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl",
+  html: "box-border m-0 p-0",
   span: "text-xl leading-10",
 };
 
@@ -43,52 +43,6 @@ function App() {
     [] /* empty dependency is blank so we do not run continuously */
   );
 
-  /* Delete */
-  const deleteTask = (id) => {
-    /* filter out the task we deleted in a new array */
-    const filterTask = tasks.filter((item) => item.id !== id);
-
-    /* save our data from our new array to state */
-    setTasks(filterTask);
-
-    Swal.fire({
-      icon: stringText.icon,
-      text: "Task deleted!",
-      title: stringText.title,
-    });
-
-    localStorage.setItem(stringText.taskAdded, JSON.stringify(filterTask));
-  };
-
-  /* Update */
-  const updateTask = (id) => {
-    const text = prompt("Task Name");
-    const quantity = prompt("Quantity");
-    const data = JSON.parse(localStorage.getItem(stringText.taskAdded));
-
-    const localData = data.map((x) => {
-      if (x.id === id) {
-        /* add to end of the list*/
-        return {
-          ...x,
-          text: text,
-          quantity: quantity,
-          id: uuidv4(),
-        };
-      }
-      return x;
-    });
-
-    Swal.fire({
-      icon: stringText.icon,
-      text: "Task updated!",
-      title: stringText.title,
-    });
-
-    localStorage.setItem(stringText.taskAdded, JSON.stringify(localData));
-    window.location.reload();
-  };
-
   return (
     <div className={styles.html}>
       <div className={styles.div}>
@@ -108,7 +62,11 @@ function App() {
 
         {/* No tasks left! will display if we have no task else display task */}
         {tasks.length > 0 ? (
-          <Tasks tasks={tasks} onDelete={deleteTask} onEdit={updateTask} />
+          <Tasks
+            tasks={tasks}
+            onDelete={deleteTask(tasks, setTasks)}
+            onEdit={updateTask}
+          />
         ) : (
           <span className={styles.span}>{stringText.span}</span>
         )}
