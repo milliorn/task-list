@@ -18,7 +18,7 @@ const styles = {
 const stringText = {
   h3: "Remaining Tasks: ",
   icon: "success",
-  span: "Tasks will be  added here...",
+  span: "Tasks will be added here...",
   taskAdded: "taskAdded",
   title: "Success!",
 };

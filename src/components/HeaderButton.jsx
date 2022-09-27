@@ -3,7 +3,7 @@ const styles = {
     "inline-block px-5 py-3 m-1 text-sm no-underline border border-none rounded-md cursor-pointer sm:text-base btn bg-zinc-900 text-zinc-50 focus:text-zinc-50 focus:outline-none md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl",
 };
 
-const Button = ({ color, text, onClick }) => {
+const HeaderButton = ({ color, text, onClick }) => {
   return (
     <button
       className={styles.button}
@@ -15,4 +15,4 @@ const Button = ({ color, text, onClick }) => {
   );
 };
 
-export default Button;
+export default HeaderButton;
