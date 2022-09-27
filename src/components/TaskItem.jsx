@@ -1,4 +1,5 @@
 import { FaPencilAlt, FaTimes } from "react-icons/fa";
+import Stopwatch from "./Stopwatch";
 
 const styles = {
   delete: "my-1.5 text-red-500 cursor-pointer delIcon",
@@ -6,12 +7,12 @@ const styles = {
   divMain:
     "flex justify-between max-w-full px-5 py-3 mx-auto my-2 overflow-scroll rounded-md cursor-pointer item bg-zinc-100",
   divParagraph: "sm:text-lg md:text-xl lg:text-2xl xl:text-3xl",
-  divSpan: "font-bold itemBold",
-  edit: "my-1.5 text-blue-500 cursor-pointer editIcon",
+  divSpan: "font-bold",
+  edit: "my-1.5 text-blue-500 cursor-pointer",
 };
 
 const text = {
-  task: "Tasks: ",
+  task: "Task: ",
   time: "Time: ",
 };
 
@@ -24,10 +25,7 @@ const TaskItem = ({ item, onDelete, onEdit }) => {
             <span className={styles.divSpan}>{text.task}</span>
             <span>{item.text}</span>
           </p>
-          <p className={styles.divParagraph}>
-            <span className={styles.divSpan}>{text.time}</span>
-            {item.quantity}
-          </p>
+          <Stopwatch />
         </div>
         <div>
           <p className={styles.divParagraph}>
