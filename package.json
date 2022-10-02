@@ -9,7 +9,7 @@
     "react-icons": "4.4.0",
     "react-scripts": "5.0.1",
     "react-timer-hook": "3.0.5",
-    "sweetalert2": "11.4.36",
+    "sweetalert2": "11.4.37",
     "uuid": "9.0.0"
   },
   "scripts": {
